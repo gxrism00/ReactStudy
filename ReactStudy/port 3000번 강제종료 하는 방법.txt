@@ -1,0 +1,9 @@
+작업관리자로 cmd 실행
+
+1.  netstat -nao | findstr 3000  -> 특정 포트를 사용하는 프로세스 확인
+
+2.  tasklist | findstr LISTENING번호 -> 프로세스 이름 확인
+
+3. taskkill /f /pid LISTENING번호 -> 프로세스 종료
+
+[출처]https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=ndb796&logNo=221138112487

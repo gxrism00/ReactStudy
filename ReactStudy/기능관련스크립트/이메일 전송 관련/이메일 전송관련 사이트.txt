@@ -1,0 +1,14 @@
+[이메일 전송 관련]
+https://skm1104.tistory.com/61
+https://blog.naver.com/PostView.naver?blogId=sejun3278&logNo=221855671796&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView
+https://velog.io/@nemo/nodemailer( Node js 에서 이메일을 전송해주는 모듈인
+nodemailer 모듈을 사용)
+
+id : emailtester072@gmail.com
+password : !remoteclone
+
+
+[emailjs 단점]
+emailjs는 무료 플랜을 사용할 경우 한 달에 200개까지 이메일을 전송할 수 있고,
+전송되는 이메일 하단에 emailjs footer가 포함된다.
+

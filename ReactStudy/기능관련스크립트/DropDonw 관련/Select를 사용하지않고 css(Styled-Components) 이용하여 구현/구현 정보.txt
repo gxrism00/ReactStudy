@@ -1,0 +1,117 @@
+[사이트]
+https://velog.io/@tunakim/select-%ED%83%9C%EA%B7%B8-%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80-%EC%95%8A%EA%B3%A0-%EB%93%9C%EB%A1%AD%EB%8B%A4%EC%9A%B4-%EA%B5%AC%ED%98%84-ft.-React
+select 태그 사용하지 않고 드롭다운 구현 (ft. React)
+select 태그의 디자인 어려움 문제로 select를 사용하지 않고 css(Styled-Components)를 이용해 드롭다운을 구현해봤습니다.
+
+구현 기능
+드롭다운 기본 기능.
+드롭다운이 펼쳐졌을 때 css 처리 ( 밑의 DOM 요소를 덮는지, 미는지 )
+
+컴포넌트
+const Dropdown = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [item, setItem] = useState(null);
+
+  const onActiveToggle = useCallback(() => {
+    setIsActive((prev) => !prev);
+  }, []);
+
+  const onSelectItem = useCallback((e) => {
+    const targetId = e.target.id;
+
+    if (targetId === "item_name") {
+      setItem(e.target.parentElement.innertText);
+    } else if (targetId === "item") {
+      setItem(e.target.innertText);
+    }
+
+    setIsActive((prev) => !prev);
+  }, []);
+
+  return (
+    <DropdownContainer>
+      <DropdownBody onClick={onActiveToggle}>
+        {item ? (
+          <>
+            <ItemName>{item}</ItemName>
+          </>
+        ) : (
+          <>
+            <DropdownSelect>선택해주세요.</DropdownSelect>
+            <AiOutlineDown />
+          </>
+        )}
+      </DropdownBody>
+      <DropdownMenu isActive={isActive}>
+        {dropdownItems.map((item) => (
+          <DropdownItemContainer id="item" key={item.id} onClick={onSelectItem}>
+            <ItemName id="item_name">{item.name}</ItemName>
+          </DropdownItemContainer>
+        ))}
+      </DropdownMenu>
+    </DropdownContainer>
+  );
+};
+
+export default Dropdown;
+
+
+드롭다운 상태를 저장합니다. active가 true면 펼쳐지고 false면 닫히도록 구현했습니다.
+선택된 드롭다운 아이템을 저장합니다.
+드롭다운 토글 기능을 하는 함수입니다.
+드롭다운 아이템을 선택했을 때 실행되는 함수입니다. 클릭 이벤트가 아이템에서 클릭 됐는지, 드롭다운 박스를 클릭했는지에 따라 조건을 설정했습니다.
+드롭다운 아이템을 클릭했으면 드롭다운을 닫습니다.
+선택된 아이템이 있다면 드롭다운 기본 메뉴에 선택된 item이 나타나도록 합니다.
+드롭다운의 기능을 수행하기 위해 styled-components에 active 변수를 넘깁니다. active가 true일 때 display: block, false일땐 display:none으로 드롭다운 구현을 합니다.
+
+CSS
+import styled from "styled-components";
+
+export const DropdownContainer = styled.div`
+  width: 400px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const DropdownBody = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 14px;
+  border: 2px solid #d2d2d2;
+`;
+
+export const DropdownSelect = styled.p`
+  font-weight: bold;
+`;
+
+export const DropdownMenu = styled.ul`
+  display: ${(props) => (props.isActive ? `block` : `none`)};
+  width: 400px;
+  background-color: white;
+  position: absolute;
+  border: 2px solid #f4acbb;
+`;
+
+export const DropdownItemContainer = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 9px 14px;
+  border-bottom: 2px solid #d2d2d2;
+  border-top: none;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+export const ItemName = styled.p`
+  font-weight: bold;
+`;
+
+컴포넌트에서 받은 active를 이용해 block, none을 구분합니다.
+posiotion: absolute를 이용해 밑의 DOM을 덮었습니다. 밀고 싶다면 position: absolute를 지우면 됩니다.

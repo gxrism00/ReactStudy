@@ -1,0 +1,41 @@
+const nodeMailer = require('nodemailer')
+
+const mailPoster = nodeMailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'emailtester072@gmail.com',
+        pass: '!remoteclone'
+        }
+});
+
+//메일 받을 유저 설정
+const mailOpt = (user_data) => {
+    const mailOptions = {
+        from: 'emailtester072@gmail.com',
+        to: 'emailtester072@gmail.com',
+        subject: '제에에에목',
+        text: '내에에에에용'
+    };
+
+    return mailOptions;
+}
+
+// 메일 전송
+const sendMail = (mailOption) => {
+    //메일 보내는 사람에 대한 설정
+    mailPoster.sendMail(mailOption, function(error, info){
+    if (error) {
+        console.log('에러 ' + error);
+    }
+    else {
+        console.log('전송 완료 ' + info.response);
+    }
+    });
+}
+
+//코드
+if(블라블라){
+
+    const mailOption = mailOpt(data.dataValues);
+    sendMail(mailOption);
+}

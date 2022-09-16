@@ -1,0 +1,30 @@
+import Select from 'react-select'
+
+export default function Page(){
+    const options =[
+        {
+            value : 1,
+            label : '문의1'
+        },
+        
+        {
+            value : 2,
+            label : '문의2'
+        },
+        
+        {
+            value : 3,
+            label : '문의'
+        }
+    ];
+
+    const Dropdown = () => (
+        <Select options={options} />
+    )
+
+    return(
+        <div >
+                <Dropdown />
+        </div>
+    ) ;
+}

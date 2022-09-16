@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        <div id="root"></div>
+        <script type="text/babel">
+        class Reservation extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                isGoing: true,
+                gender : 'M',
+                numberOfGuests: 2,
+                from : 'korea'
+                };
+
+                this.handleInputChange = this.handleInputChange.bind(this);
+            }
+
+            handleInputChange(event) {
+                const target = event.target;
+                const value = target.type === 'checkbox' ? target.checked : target.value;
+                const name = target.name;
+
+                this.setState({
+                [name]: value
+                });
+            }
+
+            render() {
+                return (
+                <form>
+                    <label>
+                    Is going:
+                    <input
+                        name="isGoing"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                    Gender: 남
+                    <input
+                        name="gender"
+                        type="radio"
+                        value ="M"
+                        checked={this.state.gender ==='M'}
+                        onChange={this.handleInputChange} />
+                    여
+                    <input
+                        name="gender"
+                        type="radio"
+                        value ="F"
+                        checked={this.state.gender ==='F'}
+                        onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                    Number of guests:
+                    <input
+                        name="numberOfGuests"
+                        type="number"
+                        value={this.state.numberOfGuests}
+                        onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                    From:
+                    <input
+                        name="from"
+                        type="text"
+                        checked={this.state.from}
+                        onChange={this.handleInputChange} />
+                    </label>
+                    <p>Is going : {this.state.isGoing ? 'checked' :'unchecked'} </p>
+                    <p>numberOfGuests :{this.state.numberOfGuests}</p>
+                    <p>Gender : {this.state.gender}</p>
+                    <p>From : {this.state.from}</p>
+                </form>
+                );
+            }
+            }
+
+        ReactDOM.render(
+            <Reservation  />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+</html>
